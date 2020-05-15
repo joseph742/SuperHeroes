@@ -15,9 +15,7 @@ class MarvelRestClient {
       self.session = session
     }
     
-    func fetchCharacters(with endPoint: inout Endpoint, page: Int, completion: @escaping (NetworkResult<PagedCharacterResponse, NetworkResponseError>) -> Void) {
-        let paginationParameter = URLQueryItem(name: "offset", value: "\(page)")
-        endPoint.queryItems.append(paginationParameter)
+    func fetchCharacters(with endPoint: Endpoint, page: Int, completion: @escaping (NetworkResult<PagedCharacterResponse, NetworkResponseError>) -> Void) {
         
         guard let requestUrl = endPoint.url else {
             return completion(NetworkResult.failure(NetworkResponseError.url))

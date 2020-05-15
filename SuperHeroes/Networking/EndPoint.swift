@@ -10,11 +10,11 @@ import Foundation
 
 struct Endpoint {
     let path: String
-    var queryItems: [URLQueryItem]
+    let queryItems: [URLQueryItem]
 }
 
 extension Endpoint {
-    static func getRequest(sortedBy sorting: Sorting = .nameAscending) -> Endpoint {
+    static func getRequest(pageNumber: Int, sortedBy sorting: Sorting = .nameAscending) -> Endpoint {
         let ts = String(Date().timeIntervalSince1970)
         let stringToHash = ts + ApiConstant.privateKey + ApiConstant.publicKey;
         let md5Data = stringToHash.md5
@@ -22,6 +22,7 @@ extension Endpoint {
             path: "/v1/public/characters",
             queryItems: [
                 URLQueryItem(name: "limit", value: ApiConstant.limit),
+                URLQueryItem(name: "offset", value: "\(pageNumber)"),
                 URLQueryItem(name: "apikey", value: ApiConstant.publicKey),
                 URLQueryItem(name: "hash", value: md5Data),
                 URLQueryItem(name: "ts", value: ts),
@@ -30,7 +31,7 @@ extension Endpoint {
         )
     }
     
-    static func getSearchRequest(matching query: String, sortedBy sorting: Sorting = .nameAscending) -> Endpoint {
+    static func getSearchRequest(pageNumber: Int, matching query: String, sortedBy sorting: Sorting = .nameAscending) -> Endpoint {
         let ts = String(Date().timeIntervalSince1970)
         let stringToHash = ts + ApiConstant.privateKey + ApiConstant.publicKey;
         let md5Data = stringToHash.md5
@@ -38,6 +39,7 @@ extension Endpoint {
             path: "/v1/public/characters",
             queryItems: [
                 URLQueryItem(name: "limit", value: ApiConstant.limit),
+                URLQueryItem(name: "offset", value: "\(pageNumber)"),
                 URLQueryItem(name: "apikey", value: ApiConstant.publicKey),
                 URLQueryItem(name: "hash", value: md5Data),
                 URLQueryItem(name: "ts", value: ts),
@@ -52,7 +54,8 @@ extension Endpoint {
     var url: URL? {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "gateway.marvel.com:443"
+        components.host = "gateway.marvel.com"
+        components.port = 443
         components.path = path
         components.queryItems = queryItems
 

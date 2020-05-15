@@ -30,8 +30,7 @@ class CharactersViewController: UIViewController, ShowAlert {
         charactersTableView.dataSource = self
         charactersTableView.prefetchDataSource = self
         
-        let endpoint = Endpoint.getRequest()
-        viewModel = CharactersViewModel(endpoint: endpoint, delegate: self)
+        viewModel = CharactersViewModel(delegate: self)
         
         viewModel.fetchCharacters()
     }
@@ -48,7 +47,7 @@ extension CharactersViewController: UITableViewDataSource {
     if isLoadingCell(for: indexPath) {
       cell.configure(with: .none)
     } else {
-      cell.configure(with: viewModel.photo(at: indexPath.row))
+      cell.configure(with: viewModel.character(at: indexPath.row))
     }
     return cell
   }
@@ -57,16 +56,15 @@ extension CharactersViewController: UITableViewDataSource {
 extension CharactersViewController: CharactersViewModelDelegate {
     
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
-      // 1
-      guard let newIndexPathsToReload = newIndexPathsToReload else {
-        activityIndicator.stopAnimating()
-        charactersTableView.isHidden = false
-        charactersTableView.reloadData()
-        return
-      }
-      // 2
-      let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
-      charactersTableView.reloadRows(at: indexPathsToReload, with: .automatic)
+        guard let newIndexPathsToReload = newIndexPathsToReload else {
+            activityIndicator.stopAnimating()
+            charactersTableView.isHidden = false
+            charactersTableView.reloadData()
+            return
+        }
+        
+        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
+        charactersTableView.reloadRows(at: indexPathsToReload, with: .automatic)
     }
 
   

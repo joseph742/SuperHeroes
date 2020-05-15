@@ -23,10 +23,8 @@ class CharactersViewModel {
     private var isFetchInProgress = false
     
     let client = MarvelRestClient()
-    var endpoint: Endpoint
     
-    init(endpoint: Endpoint, delegate: CharactersViewModelDelegate) {
-        self.endpoint = endpoint
+    init(delegate: CharactersViewModelDelegate) {
         self.delegate = delegate
     }
     
@@ -38,11 +36,12 @@ class CharactersViewModel {
       return characters.count
     }
     
-    func photo(at index: Int) -> Result {
+    func character(at index: Int) -> Result {
       return characters[index]
     }
     
     func fetchCharacters() {
+        let endpoint = Endpoint.getRequest(pageNumber: currentPage)
         
         guard !isFetchInProgress else {
             return
@@ -50,7 +49,7 @@ class CharactersViewModel {
         
         isFetchInProgress = true
         
-        client.fetchCharacters(with: &endpoint, page: currentPage) { result in
+        client.fetchCharacters(with: endpoint, page: currentPage) { result in
             switch result {
             
             case .failure(let error):
@@ -62,12 +61,12 @@ class CharactersViewModel {
             case .success(let response):
                 
                 DispatchQueue.main.async {
-                    self.currentPage += 10
+                    self.currentPage += 20
                     self.isFetchInProgress = false
-                    self.total = 100
+                    self.total = response.data.total
                     self.characters.append(contentsOf: response.data.results)
                     
-                    if response.data.offset > 10 {
+                    if response.data.offset > 20 {
                         let indexPathsToReload = self.calculateIndexPathsToReload(from: response.data.results)
                         self.delegate?.onFetchCompleted(with: indexPathsToReload)
                     } else {
