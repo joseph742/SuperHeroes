@@ -17,15 +17,18 @@ protocol CharactersViewModelDelegate: class {
 class CharactersViewModel {
     private weak var delegate: CharactersViewModelDelegate?
     
+    
     private var characters: [Result] = []
     private var currentPage = 0
     private var total = 0
     private var isFetchInProgress = false
     
     let client = MarvelRestClient()
+    let endPoint: Endpoint
     
-    init(delegate: CharactersViewModelDelegate) {
+    init( endPoint: Endpoint, delegate: CharactersViewModelDelegate) {
         self.delegate = delegate
+        self.endPoint = endPoint
     }
     
     var totalCount: Int {
@@ -40,8 +43,11 @@ class CharactersViewModel {
       return characters[index]
     }
     
+    func deleteAllCharacters() {
+        characters.removeAll()
+    }
+    
     func fetchCharacters() {
-        let endpoint = Endpoint.getRequest(pageNumber: currentPage)
         
         guard !isFetchInProgress else {
             return
@@ -49,7 +55,7 @@ class CharactersViewModel {
         
         isFetchInProgress = true
         
-        client.fetchCharacters(with: endpoint, page: currentPage) { result in
+        client.fetchCharacters(with: endPoint, page: currentPage) { result in
             switch result {
             
             case .failure(let error):

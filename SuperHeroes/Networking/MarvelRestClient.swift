@@ -17,11 +17,14 @@ class MarvelRestClient {
     
     func fetchCharacters(with endPoint: Endpoint, page: Int, completion: @escaping (NetworkResult<PagedCharacterResponse, NetworkResponseError>) -> Void) {
         
-        guard let requestUrl = endPoint.url else {
+        
+        guard let requestUrl = endPoint.url, let appendedUrl = requestUrl.append(queryParameters: ["offset": "\(page)"]) else {
             return completion(NetworkResult.failure(NetworkResponseError.url))
         }
         
-        session.dataTask(with: requestUrl, completionHandler: { data, response, error in
+        
+        
+        session.dataTask(with: appendedUrl, completionHandler: { data, response, error in
             if let httpResponse = response as? HTTPURLResponse, httpResponse.hasSuccessStatusCode, let data = data {
                 
                 let decoder = JSONDecoder()
@@ -38,6 +41,8 @@ class MarvelRestClient {
                     completion(NetworkResult.failure(NetworkResponseError.rateLimit))
                     return
                 }
+                
+                print("zoom away")
                 completion(NetworkResult.failure(NetworkResponseError.network))
                 return
             }

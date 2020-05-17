@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		59010E1D247141640017A2C6 /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59010E1C247141640017A2C6 /* URL+Extension.swift */; };
 		59E85453246D2E3500BECCB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E85452246D2E3500BECCB0 /* AppDelegate.swift */; };
 		59E85455246D2E3500BECCB0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E85454246D2E3500BECCB0 /* SceneDelegate.swift */; };
 		59E85457246D2E3500BECCB0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59E85456246D2E3500BECCB0 /* ViewController.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		59010E1C247141640017A2C6 /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		59E8544F246D2E3500BECCB0 /* SuperHeroes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperHeroes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59E85452246D2E3500BECCB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59E85454246D2E3500BECCB0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				59E8549F246D671B00BECCB0 /* ImageLoader.swift */,
 				59E854A1246D680200BECCB0 /* UIImageLoader.swift */,
 				59E854A3246D685D00BECCB0 /* ImageView+Extension.swift */,
+				59010E1C247141640017A2C6 /* URL+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				59E854A2246D680200BECCB0 /* UIImageLoader.swift in Sources */,
 				59E8546D246D354500BECCB0 /* CharacterDescriptionViewController.swift in Sources */,
 				59E85486246D3A7900BECCB0 /* NetworkResponseError.swift in Sources */,
+				59010E1D247141640017A2C6 /* URL+Extension.swift in Sources */,
 				59E85453246D2E3500BECCB0 /* AppDelegate.swift in Sources */,
 				59E85455246D2E3500BECCB0 /* SceneDelegate.swift in Sources */,
 				59E854A4246D685D00BECCB0 /* ImageView+Extension.swift in Sources */,

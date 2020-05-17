@@ -15,7 +15,6 @@ class CharacterTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        //photoImageView.image = nil
         characterImageView.cancelImageLoad()
         configure(with: .none)
     }
