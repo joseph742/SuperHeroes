@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CharacterTableViewCell: UITableViewCell {
     @IBOutlet weak var characterImageView: UIImageView!
@@ -15,8 +16,8 @@ class CharacterTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        characterImageView.cancelImageLoad()
         configure(with: .none)
+        characterImageView.image = UIImage(named: "avatar")
     }
     
     override func awakeFromNib() {
@@ -36,7 +37,7 @@ class CharacterTableViewCell: UITableViewCell {
             return
         }
         
-        characterImageView.loadImage(at: imageUrl)
+        characterImageView.kf.setImage(with: imageUrl)
         activityIndicator.stopAnimating()
       } else {
         activityIndicator.startAnimating()

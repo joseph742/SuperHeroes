@@ -55,7 +55,7 @@ class CharactersViewModel {
         
         isFetchInProgress = true
         
-        client.fetchCharacters(with: endPoint, page: currentPage) { result in
+        client.fetchCharacters(with: endPoint.url, page: currentPage) { result in
             switch result {
             
             case .failure(let error):

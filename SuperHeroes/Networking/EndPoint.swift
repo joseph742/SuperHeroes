@@ -11,6 +11,17 @@ import Foundation
 struct Endpoint {
     let path: String
     let queryItems: [URLQueryItem]
+    
+    var url: URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "gateway.marvel.com"
+        components.port = 443
+        components.path = path
+        components.queryItems = queryItems
+
+        return components.url
+    }
 }
 
 extension Endpoint {
@@ -45,18 +56,5 @@ extension Endpoint {
                 URLQueryItem(name: "nameStartsWith", value: query)
             ]
         )
-    }
-}
-
-extension Endpoint {
-    var url: URL? {
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = "gateway.marvel.com"
-        components.port = 443
-        components.path = path
-        components.queryItems = queryItems
-
-        return components.url
     }
 }

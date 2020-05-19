@@ -2,7 +2,7 @@
 //  URL+Extension.swift
 //  SuperHeroes
 //
-//  Created by Qasim Ahmed on 17/05/2020.
+//  Created by Joseph Umoru on 17/05/2020.
 //  Copyright © 2020 teckdk. All rights reserved.
 //
 

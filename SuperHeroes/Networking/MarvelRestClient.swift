@@ -8,23 +8,24 @@
 
 import Foundation
 
-class MarvelRestClient {
+class MarvelRestClient: MarvelRestClientProtocol {
     let session: URLSession
     
     init(session: URLSession = URLSession.shared) {
       self.session = session
     }
     
-    func fetchCharacters(with endPoint: Endpoint, page: Int, completion: @escaping (NetworkResult<PagedCharacterResponse, NetworkResponseError>) -> Void) {
+    func fetchCharacters(with url: URL?, page: Int, completion: @escaping (NetworkResult<PagedCharacterResponse, NetworkResponseError>) -> ()) {
         
         
-        guard let requestUrl = endPoint.url, let appendedUrl = requestUrl.append(queryParameters: ["offset": "\(page)"]) else {
+        guard let endpointUrl = url, let appendedUrl = endpointUrl.append(queryParameters: ["offset": "\(page)"]) else {
             return completion(NetworkResult.failure(NetworkResponseError.url))
         }
         
+        let requestUrl = URLRequest(url: appendedUrl)
         
         
-        session.dataTask(with: appendedUrl, completionHandler: { data, response, error in
+        session.dataTask(with: requestUrl, completionHandler: { data, response, error in
             if let httpResponse = response as? HTTPURLResponse, httpResponse.hasSuccessStatusCode, let data = data {
                 
                 let decoder = JSONDecoder()

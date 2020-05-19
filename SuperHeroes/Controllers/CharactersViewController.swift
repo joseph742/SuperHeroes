@@ -86,6 +86,14 @@ extension CharactersViewController: UITableViewDataSource {
     }
 }
 
+extension CharactersViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let characterCell = cell as? CharacterTableViewCell {
+            characterCell.characterImageView.kf.cancelDownloadTask()
+        }
+    }
+}
+
 extension CharactersViewController: CharactersViewModelDelegate {
     
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {

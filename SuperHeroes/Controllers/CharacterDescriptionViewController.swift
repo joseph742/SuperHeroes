@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CharacterDescriptionViewController: UIViewController {
     @IBOutlet weak var characterLargeImage: UIImageView!
@@ -32,7 +33,7 @@ class CharacterDescriptionViewController: UIViewController {
             guard let imageUrl = URL(string: singleCharacter.thumbnail.path + "/portrait_medium." + singleCharacter.thumbnail.thumbnailExtension) else {
                 return
                 }
-            characterImage.loadImage(at: imageUrl)
+            characterImage.kf.setImage(with: imageUrl)
         }
     }
 
