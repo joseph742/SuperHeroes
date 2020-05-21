@@ -21,9 +21,7 @@ class MarvelRestClient: MarvelRestClientProtocol {
         guard let endpointUrl = url, let appendedUrl = endpointUrl.append(queryParameters: ["offset": "\(page)"]) else {
             return completion(NetworkResult.failure(NetworkResponseError.url))
         }
-        
         let requestUrl = URLRequest(url: appendedUrl)
-        
         
         session.dataTask(with: requestUrl, completionHandler: { data, response, error in
             if let httpResponse = response as? HTTPURLResponse, httpResponse.hasSuccessStatusCode, let data = data {
@@ -43,7 +41,6 @@ class MarvelRestClient: MarvelRestClientProtocol {
                     return
                 }
                 
-                print("zoom away")
                 completion(NetworkResult.failure(NetworkResponseError.network))
                 return
             }

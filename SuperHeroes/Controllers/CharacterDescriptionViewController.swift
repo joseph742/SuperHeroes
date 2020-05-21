@@ -14,26 +14,24 @@ class CharacterDescriptionViewController: UIViewController {
     @IBOutlet weak var characterNameLabel: UILabel!
     @IBOutlet weak var characterDescriptionLabel: UILabel!
     
-    var result: Result? {
-      didSet {
-        configureView()
-      }
+    private var viewModel: CharacterDescriptionViewControllerViewModel
+    
+    init?(viewModel: CharacterDescriptionViewControllerViewModel, coder: NSCoder) {
+        self.viewModel = viewModel
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
-    }
-    
-    func configureView() {
-        if let singleCharacter = result, let characterName = characterNameLabel, let characterDescription = characterDescriptionLabel, let characterImage = characterLargeImage {
-            characterName.text = singleCharacter.name
-            characterDescription.text = singleCharacter.resultDescription
-            
-            guard let imageUrl = URL(string: singleCharacter.thumbnail.path + "/portrait_medium." + singleCharacter.thumbnail.thumbnailExtension) else {
-                return
-                }
-            characterImage.kf.setImage(with: imageUrl)
+        viewModel.processData()
+        characterNameLabel.text = viewModel.characterName
+        characterDescriptionLabel.text = viewModel.characterDescription
+        if let url = viewModel.characterImageUrl {
+            characterLargeImage.kf.setImage(with: url)
         }
     }
 

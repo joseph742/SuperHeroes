@@ -26,7 +26,7 @@
         <!--Characters View Controller-->
         <scene sceneID="OG7-PV-xaS">
             <objects>
-                <viewController id="SzA-GT-r70" customClass="CharactersViewController" customModule="SuperHeroes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="charactersViewController" id="SzA-GT-r70" customClass="CharactersViewController" customModule="SuperHeroes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LXZ-04-sEr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,7 +35,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="692"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="characterTableViewCell" rowHeight="130" id="LMu-yr-Kqt" customClass="CharacterTableViewCell" customModule="SuperHeroes" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="characterTableViewCell" rowHeight="130" id="LMu-yr-Kqt" customClass="CharacterTableViewCell" customModule="SuperHeroes" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LMu-yr-Kqt" id="xCY-vm-xD7">
@@ -93,7 +93,7 @@
                                             <outlet property="activityIndicator" destination="vsh-aN-Ka4" id="yGK-0s-4hN"/>
                                             <outlet property="characterImageView" destination="psi-gO-yxW" id="NNd-aX-qWV"/>
                                             <outlet property="characterNameLabel" destination="Ikf-T2-gIO" id="f9z-ns-USP"/>
-                                            <segue destination="e03-9H-Y7Q" kind="show" identifier="showDescriptionSegue" id="wrw-Qe-x5J"/>
+                                            <segue destination="e03-9H-Y7Q" kind="show" identifier="showDescriptionSegue" destinationCreationSelector="showCharacterDescriptionViewControllerWithCoder:" id="xsY-Qg-xMl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

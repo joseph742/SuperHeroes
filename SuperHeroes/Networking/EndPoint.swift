@@ -40,21 +40,4 @@ extension Endpoint {
             ]
         )
     }
-    
-    static func getSearchRequest(matching query: String, sortedBy sorting: Sorting = .nameAscending) -> Endpoint {
-        let ts = String(Date().timeIntervalSince1970)
-        let stringToHash = ts + ApiConstant.privateKey + ApiConstant.publicKey;
-        let md5Data = stringToHash.md5
-        return Endpoint(
-            path: "/v1/public/characters",
-            queryItems: [
-                URLQueryItem(name: "limit", value: ApiConstant.limit),
-                URLQueryItem(name: "apikey", value: ApiConstant.publicKey),
-                URLQueryItem(name: "hash", value: md5Data),
-                URLQueryItem(name: "ts", value: ts),
-                URLQueryItem(name: "orderBy", value: sorting.rawValue),
-                URLQueryItem(name: "nameStartsWith", value: query)
-            ]
-        )
-    }
 }

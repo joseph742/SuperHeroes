@@ -17,6 +17,10 @@ class CharactersViewController: UIViewController, ShowAlert {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     private var viewModel: CharactersViewModel!
+    var tableViewDataSource: CharactersViewControllerDataSource?
+    var tableViewDelegate: CharactersViewControllerTableViewDelegate?
+    var tableViewPrefetchDataSource: CharactersViewControllerPrefetchDataSource?
+    var tableViewSearchResultsUpdating: CharacterViewControllerSearchResultsUpdating?
     private var shouldShowLoadingCell = false
     
     var isSearchBarEmpty: Bool {
@@ -35,66 +39,40 @@ class CharactersViewController: UIViewController, ShowAlert {
         activityIndicator.startAnimating()
         charactersTableView.isHidden = true
         charactersTableView.separatorColor = WallapopTheme.colorChoice
-        charactersTableView.dataSource = self
-        charactersTableView.prefetchDataSource = self
-        
-        searchController.searchResultsUpdater = self
+        let endpoint = Endpoint.getRequest()
+        viewModel = CharactersViewModel(endPoint: endpoint, delegate: self)
+        viewModel.fetchCharacters()
+        tableViewDataSource = CharactersViewControllerDataSource(viewModel: viewModel, reusableIdentifier: CellIdentifiers.list)
+        tableViewDelegate = CharactersViewControllerTableViewDelegate()
+        tableViewPrefetchDataSource = CharactersViewControllerPrefetchDataSource(viewModel: viewModel)
+        tableViewSearchResultsUpdating = CharacterViewControllerSearchResultsUpdating(viewModel: viewModel, delegate: self)
+        charactersTableView.delegate = tableViewDelegate
+        charactersTableView.dataSource = tableViewDataSource
+        charactersTableView.prefetchDataSource = tableViewPrefetchDataSource
+        searchController.searchResultsUpdater = tableViewSearchResultsUpdating
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
         navigationItem.searchController = searchController
         definesPresentationContext = true
+    }
+    
+    @IBSegueAction func showCharacterDescriptionViewController(coder: NSCoder) -> CharacterDescriptionViewController? {
         
-        let endpoint = Endpoint.getRequest()
-        viewModel = CharactersViewModel(endPoint: endpoint, delegate: self)
-        viewModel.fetchCharacters()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard
-          segue.identifier == "showDescriptionSegue",
-          let indexPath = charactersTableView.indexPathForSelectedRow,
-          let characterDescriptionViewController = segue.destination as? CharacterDescriptionViewController
-          else {
-            return
+        guard let selectedRow = charactersTableView.indexPathForSelectedRow?.row else {
+          return nil
         }
-        
-        let singleCharacter = viewModel.character(at: indexPath.row)
-        characterDescriptionViewController.result = singleCharacter
-    }
-    
-    private func prepareForNewRequest() {
-        charactersTableView.isHidden = true
-        viewModel.deleteAllCharacters()
-        charactersTableView.reloadData()
+        let singleResult = viewModel.character(at: selectedRow)
+        let characterDescriptionViewModel = CharacterDescriptionViewControllerViewModel(result: singleResult)
+        return CharacterDescriptionViewController(viewModel: characterDescriptionViewModel, coder: coder)
+
     }
 
-}
-
-extension CharactersViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return viewModel.totalCount
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifiers.list, for: indexPath) as! CharacterTableViewCell
-      if isLoadingCell(for: indexPath) {
-        cell.configure(with: .none)
-      } else {
-        cell.configure(with: viewModel.character(at: indexPath.row))
-      }
-      return cell
-    }
-}
-
-extension CharactersViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let characterCell = cell as? CharacterTableViewCell {
-            characterCell.characterImageView.kf.cancelDownloadTask()
-        }
-    }
 }
 
 extension CharactersViewController: CharactersViewModelDelegate {
+    func onReloadTableViewData() {
+        charactersTableView.reloadData()
+    }
     
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
         guard let newIndexPathsToReload = newIndexPathsToReload else {
@@ -107,54 +85,20 @@ extension CharactersViewController: CharactersViewModelDelegate {
         let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
         charactersTableView.reloadRows(at: indexPathsToReload, with: .automatic)
     }
-
-  
-  func onFetchFailed(with reason: String) {
-    activityIndicator.stopAnimating()
     
-    let title = "Warning"
-    let action = UIAlertAction(title: "OK", style: .default)
-    showAlertView(with: title , message: reason, actions: [action])
-  }
-}
-
-extension CharactersViewController: UITableViewDataSourcePrefetching {
-  func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-    if indexPaths.contains(where: isLoadingCell) {
-      viewModel.fetchCharacters()
+    func onFetchFailed(with reason: String) {
+      activityIndicator.stopAnimating()
+      
+      let title = "Warning"
+      let action = UIAlertAction(title: "OK", style: .default)
+      showAlertView(with: title , message: reason, actions: [action])
     }
-  }
 }
 
 private extension CharactersViewController {
-  func isLoadingCell(for indexPath: IndexPath) -> Bool {
-    return indexPath.row >= viewModel.currentCount
-  }
-
-  func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
-    let indexPathsForVisibleRows = charactersTableView.indexPathsForVisibleRows ?? []
-    let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
-    return Array(indexPathsIntersection)
-  }
-}
-
-extension CharactersViewController: UISearchResultsUpdating, UISearchBarDelegate {
-    func updateSearchResults(for searchController: UISearchController) {
-        if let searchBarText = searchController.searchBar.text, searchBarText.count > 0 {
-            prepareForNewRequest()
-            let searchEndpoint = Endpoint.getSearchRequest(matching: searchBarText)
-            viewModel = CharactersViewModel(endPoint: searchEndpoint, delegate: self)
-            viewModel.fetchCharacters()
-        } else {
-            prepareForNewRequest()
-            let endpoint = Endpoint.getRequest()
-            viewModel = CharactersViewModel(endPoint: endpoint, delegate: self)
-            viewModel.fetchCharacters()
-        }
-      
-    }
-    
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        return false
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+      let indexPathsForVisibleRows = charactersTableView.indexPathsForVisibleRows ?? []
+      let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+      return Array(indexPathsIntersection)
     }
 }

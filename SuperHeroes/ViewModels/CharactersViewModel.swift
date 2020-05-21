@@ -9,12 +9,13 @@
 import Foundation
 
 protocol CharactersViewModelDelegate: class {
+    func onReloadTableViewData()
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?)
     func onFetchFailed(with reason: String)
 }
 
 
-class CharactersViewModel {
+class CharactersViewModel: CharactersViewModelProtocol {
     private weak var delegate: CharactersViewModelDelegate?
     
     
@@ -22,6 +23,7 @@ class CharactersViewModel {
     private var currentPage = 0
     private var total = 0
     private var isFetchInProgress = false
+    var searchQuery: String?
     
     let client = MarvelRestClient()
     let endPoint: Endpoint
@@ -44,7 +46,10 @@ class CharactersViewModel {
     }
     
     func deleteAllCharacters() {
-        characters.removeAll()
+        self.total = 0
+        self.currentPage = 0
+        self.characters.removeAll()
+        self.delegate?.onReloadTableViewData()
     }
     
     func fetchCharacters() {
@@ -54,8 +59,27 @@ class CharactersViewModel {
         }
         
         isFetchInProgress = true
+        makeUrlRequest(url: endPoint.url)
+    }
+    
+    func searchCharacter(searchString: String) {
+        guard !isFetchInProgress else {
+            return
+        }
         
-        client.fetchCharacters(with: endPoint.url, page: currentPage) { result in
+        isFetchInProgress = true
+        self.searchQuery = searchString
+        
+        guard let url = endPoint.url, let appendedUrl =  url.append(queryParameters: ["nameStartsWith": searchString]) else {
+            self.delegate?.onFetchFailed(with: NetworkResponseError.url.reason)
+            return
+        }
+        
+        makeUrlRequest(url: appendedUrl)
+    }
+    
+    private func makeUrlRequest(url: URL?) {
+        client.fetchCharacters(with: url, page: currentPage) { result in
             switch result {
             
             case .failure(let error):

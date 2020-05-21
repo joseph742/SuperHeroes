@@ -42,6 +42,8 @@ class MarvelRestClientParserTests: XCTestCase {
             case .failure(let error):
                 XCTFail(error.localizedDescription)
             case .success(let response):
+                XCTAssertEqual(response.data.results.count, 1)
+                XCTAssertEqual(response.data.results.first?.name, "3-D Man")
                 XCTAssertNotNil(response)
                 expectation.fulfill()
             }
