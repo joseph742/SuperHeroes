@@ -46,9 +46,11 @@ class MockCharactersViewModel: CharactersViewModelProtocol {
     func searchCharacter(searchString: String) {
         isSearchCharactersCalled = true
         searchQuery = searchString
-        let characterData = PagedCharacterResponse.stub()
-        self.characters.append(contentsOf: characterData.data.results)
-        self.total = characterData.data.total
+        if searchString == "3-D Man" {
+            let characterData = PagedCharacterResponse.stub()
+            self.characters.append(contentsOf: characterData.data.results)
+            self.total = characterData.data.total
+        }
     }
     
 }

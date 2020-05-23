@@ -25,13 +25,13 @@ class CharactersViewControllerDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: reusableIdentifier, for: indexPath) as! CharacterTableViewCell
-      if isLoadingCell(for: indexPath) {
-        cell.configure(with: .none)
-      } else {
-        cell.configure(with: viewModel.character(at: indexPath.row))
-      }
-      return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: reusableIdentifier, for: indexPath) as! CharacterTableViewCell
+        if isLoadingCell(for: indexPath) {
+          cell.configure(with: .none)
+        } else {
+          cell.configure(with: viewModel.character(at: indexPath.row))
+        }
+        return cell
     }
     
     func isLoadingCell(for indexPath: IndexPath) -> Bool {

@@ -14,16 +14,16 @@ class CharacterDescriptionViewController: UIViewController {
     @IBOutlet weak var characterNameLabel: UILabel!
     @IBOutlet weak var characterDescriptionLabel: UILabel!
     
-    private var viewModel: CharacterDescriptionViewControllerViewModel
+    var viewModel: CharacterDescriptionViewControllerViewModelProtocol!
     
-    init?(viewModel: CharacterDescriptionViewControllerViewModel, coder: NSCoder) {
+    /*init?(viewModel: CharacterDescriptionViewControllerViewModelProtocol, coder: NSCoder) {
         self.viewModel = viewModel
         super.init(coder: coder)
     }
     
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
+    }*/
     
     override func viewDidLoad() {
         super.viewDidLoad()

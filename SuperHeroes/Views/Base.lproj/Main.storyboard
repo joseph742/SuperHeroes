@@ -44,15 +44,30 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="psi-gO-yxW">
                                                     <rect key="frame" x="16" y="15" width="85.333333333333329" height="100"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="characterImage"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="vsh-aN-Ka4">
                                                     <rect key="frame" x="141" y="46.666666666666657" width="131" height="37"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="indicator"/>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </activityIndicatorView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ikf-T2-gIO">
                                                     <rect key="frame" x="122" y="94" width="42" height="20"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <bool key="isElement" value="NO"/>
+                                                    </accessibility>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="characterName"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -89,14 +104,22 @@
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="CharacterTableViewCell"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="activityIndicator" destination="vsh-aN-Ka4" id="yGK-0s-4hN"/>
                                             <outlet property="characterImageView" destination="psi-gO-yxW" id="NNd-aX-qWV"/>
                                             <outlet property="characterNameLabel" destination="Ikf-T2-gIO" id="f9z-ns-USP"/>
-                                            <segue destination="e03-9H-Y7Q" kind="show" identifier="showDescriptionSegue" destinationCreationSelector="showCharacterDescriptionViewControllerWithCoder:" id="xsY-Qg-xMl"/>
+                                            <segue destination="e03-9H-Y7Q" kind="show" identifier="showDescriptionSegue" id="hcc-hB-sls"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="CharactersTableView"/>
+                                </userDefinedRuntimeAttributes>
                             </tableView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="peW-CZ-aA5">
                                 <rect key="frame" x="141" y="371.66666666666669" width="131" height="37"/>
@@ -153,19 +176,25 @@
         <!--Character Description View Controller-->
         <scene sceneID="feg-Jd-9IV">
             <objects>
-                <viewController id="e03-9H-Y7Q" customClass="CharacterDescriptionViewController" customModule="SuperHeroes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="characterDescriptionViewController" id="e03-9H-Y7Q" customClass="CharacterDescriptionViewController" customModule="SuperHeroes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SMW-XW-fAe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar" translatesAutoresizingMaskIntoConstraints="NO" id="NRF-3c-PqF">
                                 <rect key="frame" x="0.0" y="65" width="414" height="276.66666666666669"/>
+                                <accessibility key="accessibilityConfiguration" identifier="largeCharacterImage">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWX-Cs-add" userLabel="TextContainer">
                                 <rect key="frame" x="0.0" y="361.66666666666674" width="414" height="354.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0nr-Xk-YvE">
                                         <rect key="frame" x="0.0" y="20" width="414" height="71"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="nameLabel">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -175,6 +204,9 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Character description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vB3-QB-Hmd">
                                         <rect key="frame" x="0.0" y="121.66666666666661" width="414" height="212.66666666666663"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="descriptionLabel">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -184,6 +216,9 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <accessibility key="accessibilityConfiguration" identifier="textContainer">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstItem="0nr-Xk-YvE" firstAttribute="top" secondItem="eWX-Cs-add" secondAttribute="top" constant="20" id="4gF-Np-giC"/>
                                     <constraint firstItem="0nr-Xk-YvE" firstAttribute="height" secondItem="eWX-Cs-add" secondAttribute="height" multiplier="0.2" id="DRo-Gf-jSW"/>
@@ -216,6 +251,10 @@
                             <constraint firstItem="LS2-jN-gNg" firstAttribute="trailing" secondItem="eWX-Cs-add" secondAttribute="trailing" id="jGn-7z-cg7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LS2-jN-gNg"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="NO"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="DescriptionView"/>
+                        </userDefinedRuntimeAttributes>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="Nq5-kr-F8q"/>
@@ -238,6 +277,10 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="rxf-Np-k6E"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="CharacterDescriptionViewController"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isAccessibilityElement" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="characterDescriptionLabel" destination="vB3-QB-Hmd" id="WLu-BG-1LV"/>
                         <outlet property="characterLargeImage" destination="NRF-3c-PqF" id="GGH-Uv-2g4"/>

@@ -45,8 +45,8 @@ class CharactersViewModelTest: XCTestCase {
         tablewView.reloadData()
         charactersViewModelUnderTest.deleteAllCharacters()
         tablewView.reloadData()
-        XCTAssertEqual(charactersViewControllerDataSource.tableView(tablewView, numberOfRowsInSection: 0), 0)
         XCTAssertTrue(charactersViewModelUnderTest.isDeleteAllCharactersCalled)
+        XCTAssertEqual(charactersViewControllerDataSource.tableView(tablewView, numberOfRowsInSection: 0), 0)
     }
     
     func testSearchCharactersWasCalled() {
@@ -54,14 +54,11 @@ class CharactersViewModelTest: XCTestCase {
         let tablewView = characterViewController.charactersTableView!
         tablewView.dataSource = charactersViewControllerDataSource
         tablewView.reloadData()
-        XCTAssertEqual(charactersViewControllerDataSource.tableView(tablewView, numberOfRowsInSection: 0), charactersViewModelUnderTest.totalCount)
         charactersViewModelUnderTest.deleteAllCharacters()
-        XCTAssertEqual(charactersViewControllerDataSource.tableView(tablewView, numberOfRowsInSection: 0), 0)
         tablewView.reloadData()
         charactersViewModelUnderTest.searchCharacter(searchString: "3-D Man")
         tablewView.reloadData()
         XCTAssertTrue(charactersViewModelUnderTest.isSearchCharactersCalled)
-        XCTAssertTrue(charactersViewModelUnderTest.isDeleteAllCharactersCalled)
         XCTAssertEqual(charactersViewControllerDataSource.tableView(tablewView, numberOfRowsInSection: 0), charactersViewModelUnderTest.totalCount)
     }
 

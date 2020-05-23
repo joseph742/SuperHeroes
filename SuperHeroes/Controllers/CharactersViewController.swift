@@ -23,18 +23,12 @@ class CharactersViewController: UIViewController, ShowAlert {
     var tableViewSearchResultsUpdating: CharacterViewControllerSearchResultsUpdating?
     private var shouldShowLoadingCell = false
     
-    var isSearchBarEmpty: Bool {
-      return searchController.searchBar.text?.isEmpty ?? true
-    }
-    
-    var isFiltering: Bool {
-      return searchController.isActive && !isSearchBarEmpty
-    }
-    
     let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.isAccessibilityElement = false
+        view.accessibilityIdentifier = "onboardingView"
         activityIndicator.color = WallapopTheme.colorChoice
         activityIndicator.startAnimating()
         charactersTableView.isHidden = true
@@ -56,15 +50,15 @@ class CharactersViewController: UIViewController, ShowAlert {
         definesPresentationContext = true
     }
     
-    @IBSegueAction func showCharacterDescriptionViewController(coder: NSCoder) -> CharacterDescriptionViewController? {
-        
-        guard let selectedRow = charactersTableView.indexPathForSelectedRow?.row else {
-          return nil
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "showDescriptionSegue", let indexPath = charactersTableView.indexPathForSelectedRow, let characterDetailViewController = segue.destination as? CharacterDescriptionViewController, self.viewModel.currentCount > 0
+          else {
+            return
         }
-        let singleResult = viewModel.character(at: selectedRow)
-        let characterDescriptionViewModel = CharacterDescriptionViewControllerViewModel(result: singleResult)
-        return CharacterDescriptionViewController(viewModel: characterDescriptionViewModel, coder: coder)
-
+        
+        let singleResult = self.viewModel.character(at: indexPath.row)
+        let descriptionViewModel = CharacterDescriptionViewControllerViewModel(result: singleResult)
+        characterDetailViewController.viewModel = descriptionViewModel
     }
 
 }

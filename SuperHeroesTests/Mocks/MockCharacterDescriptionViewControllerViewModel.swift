@@ -1,14 +1,15 @@
 //
-//  CharacterDescriptionViewControllerViewModel.swift
-//  SuperHeroes
+//  MockCharacterDescriptionViewControllerViewModel.swift
+//  SuperHeroesTests
 //
-//  Created by Qasim Ahmed on 21/05/2020.
+//  Created by Qasim Ahmed on 23/05/2020.
 //  Copyright © 2020 teckdk. All rights reserved.
 //
 
 import Foundation
+@testable import SuperHeroes
 
-class CharacterDescriptionViewControllerViewModel: CharacterDescriptionViewControllerViewModelProtocol  {
+class MockCharacterDescriptionViewControllerViewModel: CharacterDescriptionViewControllerViewModelProtocol {
     private let result: Result
     private var name = "Character name"
     private var description = "Character description not available"
@@ -42,4 +43,5 @@ class CharacterDescriptionViewControllerViewModel: CharacterDescriptionViewContr
         let urlString = self.result.thumbnail.path + "/portrait_medium." + self.result.thumbnail.thumbnailExtension
         self.url = URL(string: urlString)
     }
+    
 }
