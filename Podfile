@@ -8,4 +8,9 @@ target 'SuperHeroes' do
   # Pods for SuperHeroes
   pod 'Kingfisher', '~> 5.0'
 
+  target 'SuperHeroesTests' do
+    use_frameworks!
+    pod 'iOSSnapshotTestCase'
+  end
+
 end
