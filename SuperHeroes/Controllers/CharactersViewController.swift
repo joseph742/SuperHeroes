@@ -8,6 +8,18 @@
 
 import UIKit
 
+/*
+ Description: manages interactions between the CharactersViewController UI and the underlying data
+ property1: CellIdentifiers (private)
+ property2: charactersTableView
+ property3: activityIndicator
+ property4: viewModel
+ property5: tableViewDataSource
+ property6: tableViewDelegate
+ property7: tableViewPrefetchDataSource
+ property8: tableViewSearchResultsUpdating
+ */
+
 class CharactersViewController: UIViewController, ShowAlert {
     private enum CellIdentifiers {
       static let list = "characterTableViewCell"
@@ -63,11 +75,22 @@ class CharactersViewController: UIViewController, ShowAlert {
 
 }
 
+/*
+ Description: Implements the CharactersViewModelDelegate protocol requirements
+ */
+
 extension CharactersViewController: CharactersViewModelDelegate {
+    /*
+     Description: reloads the UITableView
+     */
     func onReloadTableViewData() {
         charactersTableView.reloadData()
     }
     
+    /*
+     Description: gets called by the viewModel after a successful response from the MarvelRestClient, reloads the UIVewTable ans Stop the activity container from spining
+     parameters1: newIndexPathsToReload
+     */
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
         guard let newIndexPathsToReload = newIndexPathsToReload else {
             activityIndicator.stopAnimating()
@@ -80,6 +103,10 @@ extension CharactersViewController: CharactersViewModelDelegate {
         charactersTableView.reloadRows(at: indexPathsToReload, with: .automatic)
     }
     
+    /*
+     Description: gets called by the viewModel after an unsuccessful response from the MarvelRestClient, shows the UIAlertController with the error message.
+     parameters1: reason
+     */
     func onFetchFailed(with reason: String) {
       activityIndicator.stopAnimating()
       
@@ -88,6 +115,11 @@ extension CharactersViewController: CharactersViewModelDelegate {
       showAlertView(with: title , message: reason, actions: [action])
     }
 }
+
+/*
+ Description: calculates the cells of the table view that you need to reload when you receive a new page.
+ parameters1: indexPaths
+ */
 
 private extension CharactersViewController {
     func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {

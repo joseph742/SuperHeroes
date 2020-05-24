@@ -1,4 +1,15 @@
 # Uncomment the next line to define a global platform for your project
+
+plugin 'cocoapods-keys', {
+  :project => "SuperHeroes",
+  :target => "SuperHeroes",
+  :keys => [
+    "publicKey",
+    "privateKey"
+  ]
+}
+
+
 platform :ios, '13.2'
 
 target 'SuperHeroes' do

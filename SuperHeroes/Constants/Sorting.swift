@@ -8,6 +8,10 @@
 
 import Foundation
 
+/*
+ Description: enumerates the various types sorting desired
+ */
+
 enum Sorting: String {
     case nameAscending = "name"
     case nameDescending = "-name"

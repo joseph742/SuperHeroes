@@ -8,12 +8,30 @@
 
 import Foundation
 
+/*
+ Description: Define the fetchCharacters method
+ */
+
+protocol MarvelRestClientProtocol {
+    func fetchCharacters(with url: URL?, page: Int, completion: @escaping (NetworkResult<PagedCharacterResponse, NetworkResponseError>) -> ())
+}
+
+/*
+ Description: Handles http request to the Marvel API
+ */
 class MarvelRestClient: MarvelRestClientProtocol {
     let session: URLSession
     
     init(session: URLSession = URLSession.shared) {
       self.session = session
     }
+    
+    /*
+     Description: Hanldes request to the Character endpoint of the marvel API
+     parameters1: url
+     parameters2: page
+     parameters2: completion
+     */
     
     func fetchCharacters(with url: URL?, page: Int, completion: @escaping (NetworkResult<PagedCharacterResponse, NetworkResponseError>) -> ()) {
         

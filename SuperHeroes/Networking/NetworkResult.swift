@@ -8,6 +8,9 @@
 
 import Foundation
 
+/*
+ Description: eumerates the state of a network response either success or failure
+ */
 enum NetworkResult<T, U: Error> {
   case success(T)
   case failure(U)

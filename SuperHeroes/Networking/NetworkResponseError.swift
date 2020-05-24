@@ -8,6 +8,10 @@
 
 import Foundation
 
+/*
+ Description: enumerates the states of a network response error
+ */
+
 enum NetworkResponseError: Error {
     case network
     case decoding

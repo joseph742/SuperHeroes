@@ -8,6 +8,13 @@
 
 import Foundation
 
+protocol CharacterDescriptionViewControllerViewModelProtocol {
+    var characterName: String { get }
+    var characterDescription: String { get }
+    var characterImageUrl: URL? { get }
+    func processData()
+}
+
 class CharacterDescriptionViewControllerViewModel: CharacterDescriptionViewControllerViewModelProtocol  {
     private let result: Result
     private var name = "Character name"

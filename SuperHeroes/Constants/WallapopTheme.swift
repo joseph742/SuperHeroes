@@ -8,6 +8,11 @@
 
 import Foundation
 import UIKit
+
+/*
+ Description: Custom color used on key items used through the app
+ */
+
 struct WallapopTheme {
     static let colorChoice = UIColor(red: 0.05, green: 0.89, blue: 0.80, alpha: 1.0)
 }

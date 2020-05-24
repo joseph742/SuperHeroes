@@ -1,5 +1,5 @@
 //
-//  HTTPURLResponse+Extensions.swift
+//  HTTPURLResponse+StatusCode.swift
 //  SuperHeroes
 //
 //  Created by Joseph Umoru on 14/05/2020.
@@ -8,13 +8,13 @@
 
 import Foundation
 
+/*
+ Description: verify if a response was successful by its status code
+ */
+
 extension HTTPURLResponse {
     var hasSuccessStatusCode: Bool {
         return 200...299 ~= statusCode
-    }
-    
-    var hasReachedRateLimit: Bool {
-        return 429 ~= statusCode
     }
     
 }

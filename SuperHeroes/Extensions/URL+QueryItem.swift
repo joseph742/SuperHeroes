@@ -1,5 +1,5 @@
 //
-//  URL+Extension.swift
+//  URL+QueryItem.swift
 //  SuperHeroes
 //
 //  Created by Joseph Umoru on 17/05/2020.
@@ -8,7 +8,13 @@
 
 import Foundation
 
+/*
+ Description: Appends urlQuery items to a url
+ parameters1: queryParameters
+ */
+
 extension URL {
+    //  Add the functionality of appending query items to a URL and returns the new URl
     func append(queryParameters: [String: String]) -> URL? {
         guard var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: true) else {
             return nil
