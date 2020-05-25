@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 /*
- Description: manages interactions between the CharacterDescriptionViewController view and the underlying data
+ Description: Manages interactions between the view and the underlying data
  property1: viewModel (implicitly unwrapped optionals)
  */
 
@@ -19,7 +19,7 @@ class CharacterDescriptionViewController: UIViewController {
     @IBOutlet weak var characterNameLabel: UILabel!
     @IBOutlet weak var characterDescriptionLabel: UILabel!
     
-    var viewModel: CharacterDescriptionViewControllerViewModelProtocol!
+    var viewModel: CharacterDescriptionViewControllerViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()

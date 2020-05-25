@@ -9,6 +9,20 @@
 import UIKit
 import Kingfisher
 
+/*
+ Description: A subclass of the UITableViewCell class
+ property1: characterImageView
+ property2 activityIndicator
+ property3 characterNameLabel
+ method1: prepareForReuse
+ method2: awakeFromNib
+ method3: setSelected
+        parameter1: selected
+        parameter2: animated
+ method3: configure
+        parameter: resultData
+ */
+
 class CharacterTableViewCell: UITableViewCell {
     @IBOutlet weak var characterImageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -29,6 +43,9 @@ class CharacterTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    /*
+     Description: sets the value for the view objects in the CharacterTableViewCell
+     */
     func configure(with resultData: Result?) {
       if let result = resultData {
         characterNameLabel?.text = result.name

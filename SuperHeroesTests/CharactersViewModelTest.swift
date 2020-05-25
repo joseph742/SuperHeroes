@@ -2,15 +2,27 @@
 //  CharactersViewModelTest.swift
 //  SuperHeroesTests
 //
-//  Created by Qasim Ahmed on 21/05/2020.
+//  Created by Joseph Umoru on 21/05/2020.
 //  Copyright © 2020 teckdk. All rights reserved.
 //
 
 import XCTest
 @testable import SuperHeroes
 
+/*
+ Description: A subclass of the XCTestCase class
+ property1: sut
+ property2: charactersViewControllerDataSource
+ property3: characterViewController
+ method1: setUp
+ method2: tearDown
+ method3: testFetchCharactersWasCalled
+ method4: testDeleteAllCharactersWasCalled
+ method5: testSearchCharactersWasCalled
+ */
+
 class CharactersViewModelTest: XCTestCase {
-    var charactersViewModelUnderTest: MockCharactersViewModel!
+    var sut: MockCharactersViewModel!
     var charactersViewControllerDataSource: CharactersViewControllerDataSource!
     var characterViewController: CharactersViewController!
 
@@ -20,46 +32,56 @@ class CharactersViewModelTest: XCTestCase {
         self.characterViewController = storyboard.instantiateViewController(withIdentifier: "charactersViewController") as? CharactersViewController
         self.characterViewController.loadView()
         self.characterViewController.viewDidLoad()
-        charactersViewModelUnderTest = MockCharactersViewModel()
-        charactersViewModelUnderTest.fetchCharacters()
-        charactersViewControllerDataSource = CharactersViewControllerDataSource(viewModel: charactersViewModelUnderTest, reusableIdentifier: "characterTableViewCell")
+        sut = MockCharactersViewModel()
+        sut.fetchCharacters()
+        charactersViewControllerDataSource = CharactersViewControllerDataSource(viewModel: sut, reusableIdentifier: "characterTableViewCell")
     }
 
     override func tearDown() {
         super.tearDown()
+        sut = nil
     }
 
+    /*
+     Description: tests if the fetchCharacters method of the CharactersViewModel was called
+     */
     func testFetchCharactersWasCalled() {
-        charactersViewModelUnderTest.fetchCharacters()
+        sut.fetchCharacters()
         let tablewView = characterViewController.charactersTableView!
         tablewView.dataSource = charactersViewControllerDataSource
         tablewView.reloadData()
-        XCTAssertTrue(charactersViewModelUnderTest.isFetchCharactersCalled)
-        XCTAssertEqual(charactersViewControllerDataSource.tableView(tablewView, numberOfRowsInSection: 0), charactersViewModelUnderTest.totalCount)
+        XCTAssertTrue(sut.isFetchCharactersCalled)
+        XCTAssertEqual(charactersViewControllerDataSource.tableView(tablewView, numberOfRowsInSection: 0), sut.totalCount)
     }
     
-    func testDeleAllCharactersWasCalled() {
-        charactersViewModelUnderTest.fetchCharacters()
+    /*
+     Description: tests if the deleteAllCharacters method of the CharactersViewModel was called
+     */
+    func testDeleteAllCharactersWasCalled() {
+        sut.fetchCharacters()
         let tablewView = characterViewController.charactersTableView!
         tablewView.dataSource = charactersViewControllerDataSource
         tablewView.reloadData()
-        charactersViewModelUnderTest.deleteAllCharacters()
+        sut.deleteAllCharacters()
         tablewView.reloadData()
-        XCTAssertTrue(charactersViewModelUnderTest.isDeleteAllCharactersCalled)
+        XCTAssertTrue(sut.isDeleteAllCharactersCalled)
         XCTAssertEqual(charactersViewControllerDataSource.tableView(tablewView, numberOfRowsInSection: 0), 0)
     }
     
+    /*
+     Description: tests if the searchCharacter method of the CharactersViewModel was called
+     */
     func testSearchCharactersWasCalled() {
-        charactersViewModelUnderTest.fetchCharacters()
+        sut.fetchCharacters()
         let tablewView = characterViewController.charactersTableView!
         tablewView.dataSource = charactersViewControllerDataSource
         tablewView.reloadData()
-        charactersViewModelUnderTest.deleteAllCharacters()
+        sut.deleteAllCharacters()
         tablewView.reloadData()
-        charactersViewModelUnderTest.searchCharacter(searchString: "3-D Man")
+        sut.searchCharacter(searchString: "3-D Man")
         tablewView.reloadData()
-        XCTAssertTrue(charactersViewModelUnderTest.isSearchCharactersCalled)
-        XCTAssertEqual(charactersViewControllerDataSource.tableView(tablewView, numberOfRowsInSection: 0), charactersViewModelUnderTest.totalCount)
+        XCTAssertTrue(sut.isSearchCharactersCalled)
+        XCTAssertEqual(charactersViewControllerDataSource.tableView(tablewView, numberOfRowsInSection: 0), sut.totalCount)
     }
 
 }

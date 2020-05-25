@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /*
- Description: Custom color used on key items used through the app
+ Description: Custom color used on key items used throughout the app
  */
 
 struct WallapopTheme {

@@ -2,11 +2,19 @@
 //  CharactersViewControllerTableViewSelectUITest.swift
 //  SuperHeroesUITests
 //
-//  Created by Qasim Ahmed on 23/05/2020.
+//  Created by Joseph Umoru on 23/05/2020.
 //  Copyright © 2020 teckdk. All rights reserved.
 //
 
 import XCTest
+
+/*
+ Description: A subclass of the XCTestCase class
+ property1: app
+ method1: setUp
+ method2: tearDown
+ method3: testForCharactersTableViewCellSelection
+*/
 
 class CharactersViewControllerTableViewSelectUITest: XCTestCase {
     let app = XCUIApplication()
@@ -21,6 +29,9 @@ class CharactersViewControllerTableViewSelectUITest: XCTestCase {
         super.tearDown()
     }
     
+    /*
+     Description: tests for the ability to select a cell successfuly
+     */
     func testForCharactersTableViewCellSelection() {
         XCTAssertTrue(app.isDisplayingOnboarding)
         let firstCell = app.tables["CharactersTableView"].cells.element(matching: .cell, identifier: "CharacterTableViewCell")

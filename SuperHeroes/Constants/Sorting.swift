@@ -9,7 +9,7 @@
 import Foundation
 
 /*
- Description: enumerates the various types sorting desired
+ Description: Enumerates the various types sorting desired
  */
 
 enum Sorting: String {

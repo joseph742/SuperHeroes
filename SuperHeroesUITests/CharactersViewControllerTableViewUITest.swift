@@ -2,11 +2,19 @@
 //  CharactersViewControllerTableViewUITest.swift
 //  SuperHeroesUITests
 //
-//  Created by Qasim Ahmed on 23/05/2020.
+//  Created by Joseph Umoru on 23/05/2020.
 //  Copyright © 2020 teckdk. All rights reserved.
 //
 
 import XCTest
+
+/*
+ Description: A subclass of the XCTestCase class
+ property1: app
+ method1: setUp
+ method2: tearDown
+ method3: testForCharactersTableViewCellExistence
+ */
 
 class CharactersViewControllerTableViewUITest: XCTestCase {
     let app = XCUIApplication()
@@ -20,6 +28,10 @@ class CharactersViewControllerTableViewUITest: XCTestCase {
     override func tearDown() {
         super.tearDown()
     }
+    
+    /*
+     Description: test for the existence of the CharactersTableView
+     */
 
     func testForCharactersTableViewCellExistence() {
         XCTAssertTrue(app.isDisplayingOnboarding)

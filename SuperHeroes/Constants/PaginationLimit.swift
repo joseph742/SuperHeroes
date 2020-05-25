@@ -2,7 +2,7 @@
 //  PaginationLimit.swift
 //  SuperHeroes
 //
-//  Created by Qasim Ahmed on 24/05/2020.
+//  Created by Joseph Umoru on 24/05/2020.
 //  Copyright © 2020 teckdk. All rights reserved.
 //
 

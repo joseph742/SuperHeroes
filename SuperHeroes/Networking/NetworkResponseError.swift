@@ -9,7 +9,7 @@
 import Foundation
 
 /*
- Description: enumerates the states of a network response error
+ Description: Enumerates the states of a network response error
  */
 
 enum NetworkResponseError: Error {

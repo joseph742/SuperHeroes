@@ -2,12 +2,16 @@
 //  PagedCharacterResponse+Extension.swift
 //  SuperHeroesTests
 //
-//  Created by Qasim Ahmed on 19/05/2020.
+//  Created by Joseph Umoru on 19/05/2020.
 //  Copyright © 2020 teckdk. All rights reserved.
 //
 
 import Foundation
 @testable import SuperHeroes
+
+/*
+ Description: Conforms to the Stubbable protocol and adding functionality, so that all conforming types have access to the method
+ */
 
 extension PagedCharacterResponse: Stubbable {
     static func stub() -> PagedCharacterResponse {

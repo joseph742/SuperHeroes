@@ -9,7 +9,7 @@
 import UIKit
 
 /*
- Description: manages interactions between the CharactersViewController UI and the underlying data
+ Description: Manages interactions between the view and the underlying data
  property1: CellIdentifiers (private)
  property2: charactersTableView
  property3: activityIndicator

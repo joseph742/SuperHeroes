@@ -2,11 +2,15 @@
 //  CharactersViewModelProtocol.swift
 //  SuperHeroes
 //
-//  Created by Qasim Ahmed on 20/05/2020.
+//  Created by Joseph Umoru on 20/05/2020.
 //  Copyright © 2020 teckdk. All rights reserved.
 //
 
 import Foundation
+
+/*
+ Description: Defines the totalCount, currentCount, searchQuery properties and deleteAllCharacters, character, fetchCharacters, searchCharacter methods
+ */
 
 protocol CharactersViewModelProtocol {
     

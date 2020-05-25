@@ -2,11 +2,19 @@
 //  CharactersViewControllerTableViewCellLabelUITest.swift
 //  SuperHeroesUITests
 //
-//  Created by Qasim Ahmed on 23/05/2020.
+//  Created by Joseph Umoru on 23/05/2020.
 //  Copyright © 2020 teckdk. All rights reserved.
 //
 
 import XCTest
+
+/*
+ Description: A subclass of the XCTestCase class
+ property1: app
+ method1: setUp
+ method2: tearDown
+ method3: testForCharactersTableViewCellLabelExistenceOnTable
+*/
 
 class CharactersViewControllerTableViewCellLabelUITest: XCTestCase {
     let app = XCUIApplication()
@@ -21,6 +29,9 @@ class CharactersViewControllerTableViewCellLabelUITest: XCTestCase {
         super.tearDown()
     }
     
+    /*
+     Description: Tests for the existence of a label in the CharactersTableView cell
+     */
     func testForCharactersTableViewCellLabelExistenceOnTable() {
         XCTAssertTrue(app.isDisplayingOnboarding)
         let firstCell = app.tables["CharactersTableView"].cells.element(matching: .cell, identifier: "CharacterTableViewCell")

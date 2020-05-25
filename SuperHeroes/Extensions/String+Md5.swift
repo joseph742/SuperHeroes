@@ -10,7 +10,7 @@ import Foundation
 import CryptoKit
 
 /*
- Description: returns hash using the md5 digest
+ Description: Returns hash using the md5 digest
  */
 
 extension String {

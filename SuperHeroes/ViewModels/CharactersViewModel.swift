@@ -8,12 +8,44 @@
 
 import Foundation
 
+/*
+ Description: Defines the onReloadTableViewData, onFetchCompleted, onFetchFailed methods
+ method1: onFetchCompleted
+ parameter1: newIndexPathsToReload
+ method2: onFetchFailed
+ parameter2: reason
+ */
 protocol CharactersViewModelDelegate: class {
     func onReloadTableViewData()
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?)
     func onFetchFailed(with reason: String)
 }
 
+/*
+ Description: Transform model information into values that can be displayed on the view. comforms to the CharactersViewModelProtocol protocol.
+ property1: delegate
+ property2: characters
+ property3: currentPage
+ property4: total
+ property5: isFetchInProgress
+ property6: searchQuery
+ property7: endpoint
+ method1: init
+        parameter1: endpoint
+        parameter2: delegate (CharactersViewModelDelegate)
+ property7: totalCount
+ property8: currentCount
+ method2: character
+        parameter1: index
+ method3: deleteAllCharacters
+ method4: fetchCharacters
+ method5: searchCharacter
+        parameter1: searchString
+ method6: makeUrlRequest
+        parameter1: url
+ method7: calculateIndexPathsToReload
+        parameter1:
+ */
 
 class CharactersViewModel: CharactersViewModelProtocol {
     private weak var delegate: CharactersViewModelDelegate?
@@ -28,23 +60,39 @@ class CharactersViewModel: CharactersViewModelProtocol {
     let client = MarvelRestClient()
     let endPoint: Endpoint
     
+    /*
+     Description: sets the initial value for the stored property delegate and endpoint
+     */
+    
     init( endPoint: Endpoint, delegate: CharactersViewModelDelegate) {
         self.delegate = delegate
         self.endPoint = endPoint
     }
     
+    /*
+     Description: return the total number of elements in the character endpoint from the API
+     */
     var totalCount: Int {
       return total
     }
     
+    /*
+     Description: return the current count of elements in the array of characters currently available
+     */
     var currentCount: Int {
       return characters.count
     }
     
+    /*
+     Description: returns the character at the specidied index from the parameter
+     */
     func character(at index: Int) -> Result {
       return characters[index]
     }
     
+    /*
+     Description: removes all the elements of the characters array, sets the value of total, currentPage to zero and call the delegate method onReloadTableViewData()
+     */
     func deleteAllCharacters() {
         self.total = 0
         self.currentPage = 0
@@ -52,6 +100,9 @@ class CharactersViewModel: CharactersViewModelProtocol {
         self.delegate?.onReloadTableViewData()
     }
     
+    /*
+     Description: checks if there is already a fetch in progress before calling makeUrlRequest method to featch characters
+     */
     func fetchCharacters() {
         
         guard !isFetchInProgress else {
@@ -62,6 +113,9 @@ class CharactersViewModel: CharactersViewModelProtocol {
         makeUrlRequest(url: endPoint.url)
     }
     
+    /*
+     Description: checks if there is already a fetch in progress before appendng the search query to the url and then calling makeUrlRequest method to featch characters
+     */
     func searchCharacter(searchString: String) {
         guard !isFetchInProgress else {
             return
@@ -78,6 +132,9 @@ class CharactersViewModel: CharactersViewModelProtocol {
         makeUrlRequest(url: appendedUrl)
     }
     
+    /*
+     Description: calls the fetchCharacters method from the MarvelRestClient instance.
+     */
     private func makeUrlRequest(url: URL?) {
         client.fetchCharacters(with: url, page: currentPage) { result in
             switch result {
@@ -108,9 +165,12 @@ class CharactersViewModel: CharactersViewModelProtocol {
         }
     }
     
-    private func calculateIndexPathsToReload(from newPhotos: [Result]) -> [IndexPath] {
-      let startIndex = characters.count - newPhotos.count
-      let endIndex = startIndex + newPhotos.count
+    /*
+     Description: alculates the index paths for the last page of characters received from the MarvelRestClient
+     */
+    private func calculateIndexPathsToReload(from newCharacters: [Result]) -> [IndexPath] {
+      let startIndex = characters.count - newCharacters.count
+      let endIndex = startIndex + newCharacters.count
       return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
 

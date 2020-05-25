@@ -2,12 +2,24 @@
 //  CharactersViewControllerPrefetchDataSource.swift
 //  SuperHeroes
 //
-//  Created by Qasim Ahmed on 20/05/2020.
+//  Created by Joseph Umoru on 20/05/2020.
 //  Copyright © 2020 teckdk. All rights reserved.
 //
 
 import Foundation
 import UIKit
+
+/*
+ Description: Conforms to the UITableViewDataSourcePrefetching protocol and a subclass of NSObject
+ property1: viewModel
+ method1: init
+        paramter1: viewModel
+ method2: tableView
+        parameter1: tableView
+        parameter2: indexPaths
+ method3: isLoadingCell
+        parameter1: indexPath
+ */
 
 class CharactersViewControllerPrefetchDataSource: NSObject, UITableViewDataSourcePrefetching {
     private let viewModel: CharactersViewModelProtocol!

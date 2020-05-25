@@ -9,7 +9,7 @@
 import Foundation
 
 /*
- Description: verify if a response was successful by its status code
+ Description: Verify if a response was successful by its status code
  */
 
 extension HTTPURLResponse {

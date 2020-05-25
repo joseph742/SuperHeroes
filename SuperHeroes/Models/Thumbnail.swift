@@ -8,6 +8,13 @@
 
 import Foundation
 
+/*
+ Description: A wrapper for the Thumbnail data from the MarvelRestClient
+ property1: path
+ property2: thumbnailExtension
+ property3: CodingKeys
+ */
+
 struct Thumbnail: Codable {
     let path: String
     let thumbnailExtension: String

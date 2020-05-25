@@ -14,7 +14,6 @@ import Foundation
  */
 
 extension URL {
-    //  Add the functionality of appending query items to a URL and returns the new URl
     func append(queryParameters: [String: String]) -> URL? {
         guard var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: true) else {
             return nil

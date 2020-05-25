@@ -8,6 +8,12 @@
 
 import Foundation
 
+/*
+ Description: A wrapper for the URLElement data from the MarvelRestClient
+ property1: type
+ property2 url
+ */
+
 struct URLElement: Codable {
     let type: String
     let url: String

@@ -2,11 +2,19 @@
 //  CharacterDescriptionViewControllerTextContainerUITest.swift
 //  SuperHeroesUITests
 //
-//  Created by Qasim Ahmed on 23/05/2020.
+//  Created by Joseph Umoru on 23/05/2020.
 //  Copyright © 2020 teckdk. All rights reserved.
 //
 
 import XCTest
+
+/*
+ Description: A subclass of the XCTestCase class
+ property1: app
+ method1: setUp
+ method2: tearDown
+ method3: testcharacterDescriptionViewControllerTextContainer
+*/
 
 class CharacterDescriptionViewControllerTextContainerUITest: XCTestCase {
     let app = XCUIApplication()
@@ -21,6 +29,10 @@ class CharacterDescriptionViewControllerTextContainerUITest: XCTestCase {
         super.tearDown()
     }
     
+    
+    /*
+     Description: Tests for the existence of a view and the containing labels
+     */
     func testcharacterDescriptionViewControllerTextContainer() {
         XCTAssertTrue(app.isDisplayingOnboarding)
         let firstCell = app.tables["CharactersTableView"].cells.element(matching: .cell, identifier: "CharacterTableViewCell")

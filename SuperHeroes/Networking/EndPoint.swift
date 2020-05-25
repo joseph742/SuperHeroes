@@ -33,8 +33,7 @@ struct Endpoint {
 }
 
 /*
- Description: returns an instance of Endpoint with all properties initialized
- parameter1: Sorting enum
+ Description: Returns an instance of Endpoint with all properties initialized
  */
 
 extension Endpoint {

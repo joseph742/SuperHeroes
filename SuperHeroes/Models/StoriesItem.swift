@@ -8,6 +8,13 @@
 
 import Foundation
 
+/*
+ Description: A wrapper for the StoriesItem data from the MarvelRestClient
+ property1: resourceURI
+ property2: name
+ property3: type
+ */
+
 struct StoriesItem: Codable {
     let resourceURI: String
     let name: String

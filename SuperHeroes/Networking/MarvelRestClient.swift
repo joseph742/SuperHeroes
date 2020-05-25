@@ -9,7 +9,7 @@
 import Foundation
 
 /*
- Description: Define the fetchCharacters method
+ Description: Defines the fetchCharacters method
  */
 
 protocol MarvelRestClientProtocol {

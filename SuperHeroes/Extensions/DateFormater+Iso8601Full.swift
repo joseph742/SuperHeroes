@@ -9,7 +9,7 @@
 import Foundation
 
 /*
- Description: returns a custom iso8601 dateformat instance
+ Description: Returns a custom iso8601 dateformat instance
  */
 
 extension DateFormatter {

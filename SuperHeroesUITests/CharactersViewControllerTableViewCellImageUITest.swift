@@ -2,11 +2,19 @@
 //  CharactersViewControllerTableViewCellImageUITest.swift
 //  SuperHeroesUITests
 //
-//  Created by Qasim Ahmed on 23/05/2020.
+//  Created by Joseph Umoru on 23/05/2020.
 //  Copyright © 2020 teckdk. All rights reserved.
 //
 
 import XCTest
+
+/*
+ Description: A subclass of the XCTestCase class
+ property1: app
+ method1: setUp
+ method2: tearDown
+ method3: testForCharactersTableViewCellImageExistenceOnTable
+*/
 
 class CharactersViewControllerTableViewCellImageUITest: XCTestCase {
     let app = XCUIApplication()
@@ -20,6 +28,10 @@ class CharactersViewControllerTableViewCellImageUITest: XCTestCase {
     override func tearDown() {
         super.tearDown()
     }
+    
+    /*
+     Description: Tests for the existence of a imageView in the CharactersTableView cell
+     */
 
     func testForCharactersTableViewCellImageExistenceOnTable() {
         XCTAssertTrue(app.isDisplayingOnboarding)
